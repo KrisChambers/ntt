@@ -1,0 +1,27 @@
+{
+  "name": "ts-server",
+  "version": "1.0.0",
+  "description": "Simple server built in typescript",
+  "main": "dist/server.js",
+  "scripts": {
+    "test": "jest",
+    "build": "tsc -p ./tsconfig.develop.json"
+  },
+  "keywords": [
+    "typescript",
+    "server"
+  ],
+  "author": "Kris Chambers <kris.chambers@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^24.0.17",
+    "jest": "^24.8.0",
+    "nodemon": "^1.19.1",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "@types/node": "^12.7.1"
+  }
+}
