@@ -5,7 +5,8 @@
   "main": "dist/server.js",
   "scripts": {
     "test": "jest",
-    "build": "tsc -p ./tsconfig.develop.json"
+    "build": "tsc -p ./tsconfig.develop.json",
+    "debug": "nodemon --inspect"
   },
   "keywords": [
     "typescript",
@@ -15,6 +16,11 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^24.0.17",
+    "@typescript-eslint/eslint-plugin": "^1.13.0",
+    "@typescript-eslint/parser": "^1.13.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.2",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "ts-jest": "^24.0.2",

@@ -1,6 +1,6 @@
 {
-	"watch": ["Source"],
-	"ext": "ts",
-	"ignore": ["Source/**/*.spec.ts"],
-	"exec": "ts-node ./Source/server.ts"
+  "watch": ["Source"],
+  "ext": "ts",
+  "ignore": ["Source/**/*.spec.ts"],
+  "exec": "node --inspect=7000 -r ts-node/register Source/server.ts"
 }

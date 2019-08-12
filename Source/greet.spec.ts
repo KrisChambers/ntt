@@ -1,8 +1,4 @@
-/**
- * 
- */
-
-import { greet } from "./greet";
+import { greet } from "./greet"
 
 describe("Are we greeting?", () =>
 {
