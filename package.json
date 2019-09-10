@@ -1,33 +1,33 @@
 {
-  "name": "ts-server",
-  "version": "1.0.0",
-  "description": "Simple server built in typescript",
-  "main": "dist/server.js",
-  "scripts": {
-    "test": "jest",
-    "build": "tsc -p ./tsconfig.develop.json",
-    "debug": "nodemon --inspect"
-  },
-  "keywords": [
-    "typescript",
-    "server"
-  ],
-  "author": "Kris Chambers <kris.chambers@outlook.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/jest": "^24.0.17",
-    "@typescript-eslint/eslint-plugin": "^1.13.0",
-    "@typescript-eslint/parser": "^1.13.0",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.2",
-    "jest": "^24.8.0",
-    "nodemon": "^1.19.1",
-    "ts-jest": "^24.0.2",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.3"
-  },
-  "dependencies": {
-    "@types/node": "^12.7.1"
-  }
+	"name": "ts-base",
+	"version": "1.0.0",
+	"description": "Simple base project for typescript",
+	"main": "dist/server.js",
+	"scripts": {
+		"test": "jest",
+		"build": "tsc -p ./tsconfig.develop.json",
+		"debug": "nodemon --inspect"
+	},
+	"keywords": [
+		"typescript",
+		"server"
+	],
+	"author": "Kris Chambers <kris.chambers@outlook.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/jest": "^24.0.17",
+		"@typescript-eslint/eslint-plugin": "^1.13.0",
+		"@typescript-eslint/parser": "^1.13.0",
+		"eslint": "^5.16.0",
+		"eslint-config-airbnb-base": "^13.2.0",
+		"eslint-plugin-import": "^2.18.2",
+		"jest": "^24.8.0",
+		"nodemon": "^1.19.1",
+		"ts-jest": "^24.0.2",
+		"ts-node": "^8.3.0",
+		"typescript": "^3.5.3"
+	},
+	"dependencies": {
+		"@types/node": "^12.7.1"
+	}
 }
