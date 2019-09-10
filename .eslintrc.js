@@ -1,25 +1,3 @@
-/** @typedef {"off" | "warn" | "error"} Severity */
-/** @typedef {{ value?: any, severity: Severity }} RuleOptions */
-
-/** @type {Severity} */
-const defaultSeverity = "warn";
-
-/*
-	{ value: any, severity: "off" | "warn" | "error" }
-*/
-
-/**
- *
- * @param {RuleOptions} param0
- */
-function set({ value, severity = "warn" }) {
-  if (value) {
-    return [severity, value];
-  }
-
-  return value;
-}
-
 module.exports = {
   env: {
     es6: true,
