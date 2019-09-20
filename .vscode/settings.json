@@ -1,3 +1,16 @@
 {
-	"eslint.validate": ["typescript", "typescriptreact"]
+		"eslint.options": {
+			"extensions": [
+				".ts"
+			]
+		},
+		"eslint.validate": [
+			{
+				"language": "typescript",
+				"autoFix": true
+			}
+		],
+		"eslint.autoFixOnSave": true,
+		"editor.formatOnSave": false,
+		"javascript.format.enable": false
 }
