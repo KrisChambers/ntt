@@ -20,6 +20,7 @@ module.exports = {
 		indent: "off",
 		"@typescript-eslint/indent": ["warn", "tab"],
 		"no-trailing-spaces": "warn",
+		"space-before-function-paren": "warn",
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/explicit-member-accessibility": "off",
 		"linebreak-style": ["warn", "windows"],
