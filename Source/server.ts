@@ -1,5 +1,5 @@
 import * as http from "http"
-import { greet } from "greet"
+import { greet } from "@App/greet"
 
 const server = http.createServer((req, res) =>
 {

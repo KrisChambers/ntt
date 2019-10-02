@@ -1,4 +1,4 @@
-import { greet } from "./greet"
+import { greet } from "@App/greet"
 
 describe("Are we greeting?", () =>
 {
