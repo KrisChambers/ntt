@@ -16,9 +16,10 @@ module.exports = {
 	},
 
 	rules: {
-		"brace-style": ["warn", "allman"],
+		"brace-style": "off",
+		"@typescript-eslint/brace-style": ["warn", "allman"],
 		indent: "off",
-		"@typescript-eslint/indent": ["warn", "tab"],
+		"@typescript-eslint/indent": ["warn", "tab" ],
 		"no-trailing-spaces": "warn",
 		"space-before-function-paren": "warn",
 		"@typescript-eslint/explicit-function-return-type": "off",
