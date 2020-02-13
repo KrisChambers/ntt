@@ -4,13 +4,11 @@
 				".ts"
 			]
 		},
-		"eslint.validate": [
-			{
-				"language": "typescript",
-				"autoFix": true
-			}
-		],
-		"eslint.autoFixOnSave": true,
+		"eslint.validate": [ "typescript" ],
 		"editor.formatOnSave": false,
-		"javascript.format.enable": false
+		"javascript.format.enable": false,
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true
+		},
+		"eslint.enable": true
 }

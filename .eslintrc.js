@@ -11,8 +11,7 @@ module.exports = {
 	parser: "@typescript-eslint/parser",
 	plugins: ["@typescript-eslint"],
 	parserOptions: {
-		sourceType: "module",
-		project: "tsconfig.json"
+		project: "./tsconfig.json"
 	},
 
 	rules: {
@@ -31,7 +30,7 @@ module.exports = {
 	overrides: [
 		{
 			// Rules for tests.
-			files: ["Source/**/*.spec.ts"],
+			files: ["Test/**/*.spec.ts"],
 			rules: {
 				"no-undef": "off"
 			}
