@@ -4,11 +4,9 @@ npm run debug: starts the nodemon server with the inspector port open at 7000
 
 npm test: runs the jest tests
 
-npm build: runs the compiler against the tsconfig.develop.json setup.
+npm build: runs the compiler against the tsconfig.json setup.
 
 ## TSConfig
-
-Setup so we can store unit tests next to what they are testing
 
 incremental builds will work
 
