@@ -23,6 +23,25 @@ module.exports = {
 		"space-before-function-paren": "warn",
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/explicit-member-accessibility": "off",
+		"@typescript-eslint/member-delimiter-style": ["warn", {
+			"multiline": {
+				"delimiter": "none",
+				"requireLast": false
+			},
+			"singleline": {
+				"delimiter": "comma",
+				"requireLast": true
+			},
+			"overrides": {
+				"interface": {
+					"multiline": {
+						"delimiter": "none",
+						"requireLast": true
+					}
+				}
+			}
+		}],
+		"@typescript-eslint/interface-name-prefix": ["warn", "always"],
 		"linebreak-style": ["warn", "windows"],
 		quotes: ["warn", "double"],
 		semi: ["warn", "never"]
