@@ -19,6 +19,7 @@ module.exports = {
 		"@typescript-eslint/brace-style": ["warn", "allman"],
 		indent: "off",
 		"@typescript-eslint/indent": ["warn", "tab" ],
+		"@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_"}],
 		"no-trailing-spaces": "warn",
 		"space-before-function-paren": "warn",
 		"@typescript-eslint/explicit-function-return-type": "off",
@@ -42,6 +43,7 @@ module.exports = {
 			}
 		}],
 		"@typescript-eslint/interface-name-prefix": ["warn", "always"],
+		"@typescript-eslint/no-empty-interface": "off",
 		"linebreak-style": ["warn", "windows"],
 		quotes: ["warn", "double"],
 		semi: ["warn", "never"]
@@ -52,6 +54,12 @@ module.exports = {
 			files: ["Test/**/*.spec.ts"],
 			rules: {
 				"no-undef": "off"
+			}
+		},
+		{
+			files: ["**/Components/*", "**/Components.ts"],
+			rules: {
+				"@typescript-eslint/interface-name-prefix": ["warn", "never"],
 			}
 		}
 	]

@@ -1,6 +1,6 @@
 module.exports = {
 	preset: "ts-jest",
-	roots: ["Source/"],
+	roots: ["Test/"],
 	moduleNameMapper: {
 		'^@App/(.*)$': '<rootDir>/Source/$1'
 	}
