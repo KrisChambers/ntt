@@ -1,4 +1,4 @@
-import { IfMemberOf, Component, ComponentType, ComponentTypes, Props } from "@App/types"
+import { IfMemberOf, Component, ComponentType, ComponentTypes, Props, Cons, Remove } from "@App/types"
 
 /**
  * The type of an entity with some helper functions.
@@ -41,7 +41,14 @@ export interface IEntity<T extends Component[] = Component[]>
 	 * @param type The component type being added
 	 * @param data The data of the component
 	 */
-	add<C extends Component>(type: ComponentType<C>, data: Props<C>): void
+	add<C extends Component>(component: C): IEntity<Cons<T, C>>
+
+	/**
+	 * Removes the component type from the entity.
+	 *
+	 * @param type The type of component to remove.
+	 */
+	remove<C extends Component>(type: ComponentType<C>): IEntity<Remove<C, T>>
 }
 
 /**

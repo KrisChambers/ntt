@@ -1,8 +1,10 @@
 import { IStore } from "@App/Entity/Types/IStore"
 
-export function StoreTest (name: string, Store: new () => IStore)
+export function StoreTest (Store: new () => IStore)
 {
-	describe("Testing Store " + name, () =>
+	const name = Store.name
+
+	describe(`Testing ${name}`, () =>
 	{
 		const store = new Store()
 
@@ -16,7 +18,7 @@ export function StoreTest (name: string, Store: new () => IStore)
 				expect(entity.id).toBeDefined()
 			})
 
-			test("It should have no components", () =>
+			test("New entity should have no components", () =>
 			{
 				const entity = store.create()
 
@@ -34,5 +36,19 @@ export function StoreTest (name: string, Store: new () => IStore)
 			})
 		})
 
+		describe(`${name} read test`, () =>
+		{
+			const e1 = store.create()
+			const e2 = store.create()
+
+			test("Should return correct entity (not a copy)", () =>
+			{
+				const e = store.read(e1.id)
+				const a = store.read(e2.id)
+
+				expect(e.id).toBe(e1.id)
+				expect(a.id).toBe(e2.id)
+			})
+		})
 	})
 }

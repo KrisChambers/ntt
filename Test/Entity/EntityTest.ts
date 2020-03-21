@@ -1,4 +1,4 @@
-import { IEntityConstructor } from "@App/Entity/Types/IEntity"
+import { IEntityConstructor, IEntity } from "@App/Entity/Types/IEntity"
 import { RegisterComponent } from "@App/RegisterComponent"
 
 /**
@@ -51,6 +51,19 @@ export function EntityTest (Entity: IEntityConstructor)
 			test("Entity.has should return true", () =>
 			{
 				expect(e.has(Name)).toBe(true)
+			})
+		})
+
+		describe(`${Entity.name} removing a component`, () =>
+		{
+			const e: IEntity<[Name]> = new Entity(1, Name("Boop"))
+
+			test("Should remove the name component", () =>
+			{
+				const c = e.remove(Name)
+
+				expect(c.has(Name)).toBe(false)
+				expect(c.get(Name)).toBeNull()
 			})
 		})
 	})

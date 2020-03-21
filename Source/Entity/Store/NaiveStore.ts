@@ -9,25 +9,40 @@ import { IdGenerator } from "./IdGenerator"
  */
 export class NaiveStore implements IStore
 {
+	private InvalidIdError = (id: number) => Error(`Invalid id ${id}`)
+
+	destroy (id: number): void
+	{
+		this.entities.delete(id)
+	}
+
 	create (): IEntity
 	{
-		const id = this.getId()
+		const entity = new NaiveEntity(this.getId())
 
-		this.entities.set(id, [])
+		this.entities.set(entity.id, entity)
 
-		return new NaiveEntity(id)
+		return entity
 	}
-	read (_id: number): IEntity
+
+	read (id: number): IEntity
 	{
-		throw new Error("Method not implemented.")
+		if (this.entities.has(id))
+		{
+			return new NaiveEntity(id, this.entities.get(id) ?? [])
+		}
+
+		throw this.InvalidIdError(id)
 	}
-	add (_id: number, _component: {}): void
+
+	add (id: number, component: Component): void
 	{
-		throw new Error("Method not implemented.")
-	}
-	delete (_entity: IEntity): IEntity
-	{
-		throw new Error("Method not implemented.")
+		if (this.entities.has(id))
+		{
+			this.entities.get(id)?.add(component)
+		}
+
+		throw this.InvalidIdError(id)
 	}
 
 	private getId ()
@@ -35,6 +50,6 @@ export class NaiveStore implements IStore
 		return this.idGen.getId()
 	}
 
-	private entities: Map<number, Component[]> = new Map()
+	private entities: Map<number, IEntity> = new Map()
 	private idGen = new IdGenerator(0)
 }

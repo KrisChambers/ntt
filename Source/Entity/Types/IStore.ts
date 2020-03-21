@@ -1,5 +1,5 @@
 import { IEntity } from "./IEntity"
-import { Component } from "@App/types"
+import { Component, ComponentType } from "@App/types"
 
 /**
  * Basic store for entities.
@@ -17,12 +17,11 @@ export interface IStore
 	 */
 	read(id: number): IEntity
 
-	/**
-	 * Adds a component to the entity
-	 * @param id
-	 * @param component
-	 */
-	add(id: number, component: Component): void
 
-	delete(entity: IEntity): IEntity
+	/**
+	 * Removes the entity from the store.
+	 *
+	 * @param id the id of the entity
+	 */
+	destroy(id: number): void
 }

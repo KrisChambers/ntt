@@ -1,4 +1,4 @@
-import { Component, ComponentType, IfExtends, ComponentTypes, Props, IfMemberOf } from "@App/types"
+import { Component, ComponentType, IfExtends, ComponentTypes, IfMemberOf, Cons, Remove } from "@App/types"
 import { IEntity } from "../Types/IEntity"
 
 /**
@@ -6,17 +6,16 @@ import { IEntity } from "../Types/IEntity"
  */
 export class NaiveEntity<T extends Component[] = Component[]> implements IEntity<T>
 {
-	constructor (
-		public readonly id: number,
-		... components: Component[]
-	)
+	constructor (public readonly id: number, ... components: Component[])
 	{
 		components.forEach(comp => this.comps.set(this.getKey(comp), comp))
 	}
 
-	add<C extends {}> (type: ComponentType<C>, data: Props<C>): void
+	add<C extends {}> (component: C): IEntity<Cons<T, C>>
 	{
-		this.comps.set(this.getKey(type), data)
+		this.comps.set(this.getKey(component), component)
+
+		return this as unknown as IEntity<Cons<T, C>>
 	}
 
 	get count ()
@@ -43,6 +42,14 @@ export class NaiveEntity<T extends Component[] = Component[]> implements IEntity
 	{
 		throw new Error("Method not implemented.")
 	}
+
+	remove<C extends Component> (type: ComponentType<C>): IEntity<Remove<C, T>>
+	{
+		this.comps.delete(this.getKey(type))
+
+		return this as unknown as IEntity<Remove<C, T>>
+	}
+
 
 	private getKey (type: ComponentType<Component> | Component)
 	{

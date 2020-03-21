@@ -86,12 +86,39 @@ export type Reverse<List extends any[], R extends any[] = []> = {
 }[List extends [any, ...any[]] ? 1 : 0];
 //type ReverseTest = Reverse<[1, 2, 3]> // Should be [3, 2, 1]
 
+export type Last<List extends any[]> = Head<Reverse<List>>
+
 /**
  * Pushes an item onto the end of a list.
  */
 export type Push<List extends any[], Item> = Reverse<Cons<Reverse<List>, Item>>
-// type PushTest = Push<[1, 2, 3], 0>
+//type PushTest = Push<[1, 2, 3], 0> // Should be [1, 2, 3, 0]
 
+export type Pop<List extends any[]> = List extends [] ? [] : [Reverse<Tail<Reverse<List>>>, Head<Reverse<List>>]
+//type PopTest = Pop<[1,2,3,4]>	// Should be [[1, 2, 3], 4]
+// type PopTest2 = Pop<[1,2,3,4]>[1]	// Should be 4
+// type PopTest3 = Pop<[1, 2, 3, 4]>[0]	// Should be [1, 2, 3]
+
+
+export type Concat<List1 extends any[], List2 extends any[]> = {
+	0: List1
+	1: Concat<Push<List1, Head<List2>>, Tail<List2>>
+}[ List2 extends [] ? 0 : 1 ]
+// type ConcatTest = Concat<[1,3,4], [2, 4]> // Should be [1 3 4 2 4]
+
+/**
+ * Removes all instances of `Item` from `List`
+ */
+export type Remove<Item, List extends any[], NewList extends any[] = []> = {
+	0: NewList
+	1: IfEqual<Item, Head<List>,
+	Remove<Item, Tail<List>, NewList>,
+	Remove<Item, Tail<List>, Push<NewList, Head<List>>>
+	>
+}[List extends [any, ... any[]] ? 1 : 0 ]
+//type RemoveTest = Remove<1, [2, 3, 1, 5, 1]> // should be [2, 3, 5]
+// type RemoveTest = Remove<string, [string, number]> // Should be [number]
+//type RemoveTest = Remove<1, [2, 3, 4]>
 
 type InstanceProp<T> = T extends Record <infer S, infer U> ? Record<S, Instance<U>> : never
 
