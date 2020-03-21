@@ -1,4 +1,4 @@
-import { NaiveStore } from "@App/Entity/Store/NaiveStore"
+import { NaiveStore } from "@App/Store/NaiveStore"
 import { StoreTest } from "./StoreTest"
 
 describe("Testing NaiveStore", () => StoreTest(NaiveStore))

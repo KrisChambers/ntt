@@ -1,7 +1,7 @@
-import { IStore } from "../Types/IStore"
-import { IEntity } from "../Types/IEntity"
+import { IStore } from "@App/Types/IStore"
+import { IEntity } from "@App/Types/IEntity"
 import { Component } from "@App/types"
-import { NaiveEntity } from "./NaiveEntity"
+import { NaiveEntity } from "@App/Entity/NaiveEntity"
 import { IdGenerator } from "./IdGenerator"
 
 /**

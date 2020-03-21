@@ -1,4 +1,4 @@
-import { IEntityConstructor, IEntity } from "@App/Entity/Types/IEntity"
+import { IEntityConstructor, IEntity } from "@App/Types/IEntity"
 import { RegisterComponent } from "@App/RegisterComponent"
 
 /**

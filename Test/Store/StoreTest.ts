@@ -1,4 +1,4 @@
-import { IStore } from "@App/Entity/Types/IStore"
+import { IStore } from "@App/Types/IStore"
 
 export function StoreTest (Store: new () => IStore)
 {

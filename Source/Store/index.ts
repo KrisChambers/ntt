@@ -1,4 +1,4 @@
-import { IStore } from "../Types/IStore"
+import { IStore } from "@App/Types/IStore"
 
 export function getStore ()
 {
