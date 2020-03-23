@@ -1,5 +1,5 @@
-import { IEntityConstructor, IEntity } from "@App/Types/IEntity"
-import { RegisterComponent } from "@App/RegisterComponent"
+import { IEntityConstructor } from "@App/Types/IEntity"
+import { Name, X } from "../TestComponents"
 
 /**
  * Base tests for implementations of IEntity
@@ -8,11 +8,6 @@ import { RegisterComponent } from "@App/RegisterComponent"
  */
 export function EntityTest (Entity: IEntityConstructor)
 {
-	const _Name = RegisterComponent("Name", { text: String })
-	interface Name extends ReturnType<typeof _Name>
-	{ }
-	const Name = (...args: Parameters<typeof _Name>) => _Name(...args) as Name
-
 	describe(`${Entity.name} tests`, () =>
 	{
 		describe(`${Entity.name} simple creation`, () =>
@@ -36,27 +31,9 @@ export function EntityTest (Entity: IEntityConstructor)
 			)
 		})
 
-		describe(`${Entity.name} creation with component`, () =>
-		{
-			const e = new Entity(1, Name("Boop"))
-
-			test("Entity should have 1 components", () =>
-				expect(e.count).toBe(1)
-			)
-
-			test("Entity should return the component when it is defined", () =>
-				expect(e.get(Name)).toBeDefined()	// Note: This is unknown
-			)
-
-			test("Entity.has should return true", () =>
-			{
-				expect(e.has(Name)).toBe(true)
-			})
-		})
-
 		describe(`${Entity.name} removing a component`, () =>
 		{
-			const e: IEntity<[Name]> = new Entity(1, Name("Boop"))
+			const e = new Entity(1).add(Name, "Boop")
 
 			test("Should remove the name component", () =>
 			{
@@ -65,6 +42,15 @@ export function EntityTest (Entity: IEntityConstructor)
 				expect(c.has(Name)).toBe(false)
 				expect(c.get(Name)).toBeNull()
 			})
+		})
+
+		describe(`${Entity.name} adding a component`, () =>
+		{
+			const e = new Entity(1)
+				.add(Name, "Boop")
+				.add(X, 2)
+
+			expect(e.has(Name)).toBe(true)
 		})
 	})
 }

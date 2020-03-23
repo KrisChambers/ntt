@@ -1,15 +1,34 @@
 import { IStore } from "@App/Types/IStore"
 import { IEntity } from "@App/Types/IEntity"
-import { Component } from "@App/types"
+import { Component, ComponentType } from "@App/Types/Component"
 import { NaiveEntity } from "@App/Entity/NaiveEntity"
 import { IdGenerator } from "./IdGenerator"
+import { IQueryDesc } from "@App/Types/QueryDesc"
+import { Default } from "./Matcher"
 
 /**
  * A Naive implementation of the store interface.
  */
 export class NaiveStore implements IStore
 {
-	private InvalidIdError = (id: number) => Error(`Invalid id ${id}`)
+	constructor (
+		private readonly all = Default.All,
+		private readonly any = Default.Any,
+		private readonly none = Default.None
+	)
+	{ }
+
+	find (desc: IQueryDesc): IEntity[]
+	{
+		const query = this.getQuery(desc)
+		const result: IEntity[] = []
+
+		for(const e of this.entities.values())
+			if(this.isMatch(e, query))
+				result.push(e)
+
+		return result
+	}
 
 	destroy (id: number): void
 	{
@@ -27,22 +46,40 @@ export class NaiveStore implements IStore
 
 	read (id: number): IEntity
 	{
-		if (this.entities.has(id))
+		const entity = this.entities.get(id)
+
+		if (entity != null)
 		{
-			return new NaiveEntity(id, this.entities.get(id) ?? [])
+			return entity
 		}
 
 		throw this.InvalidIdError(id)
 	}
 
-	add (id: number, component: Component): void
+	add<C extends Component> (id: number, type: ComponentType<C>, ... args: Parameters<ComponentType<C>>): void
 	{
 		if (this.entities.has(id))
 		{
-			this.entities.get(id)?.add(component)
+			this.entities.get(id)?.add(type, args)
 		}
 
 		throw this.InvalidIdError(id)
+	}
+
+	private isMatch (entity: IEntity, query: Required<IQueryDesc>)
+	{
+		return this.all(entity, ... (query.All ?? [])) &&
+			this.any(entity, ... query.Any ?? []) &&
+			this.none(entity, ... query.None ?? [])
+	}
+
+	private getQuery (query: IQueryDesc): Required<IQueryDesc>
+	{
+		return {
+			All: query.All ?? [],
+			Any: query.Any ?? [],
+			None: query.None ?? []
+		}
 	}
 
 	private getId ()
@@ -52,4 +89,6 @@ export class NaiveStore implements IStore
 
 	private entities: Map<number, IEntity> = new Map()
 	private idGen = new IdGenerator(0)
+
+	private InvalidIdError = (id: number) => Error(`Invalid id ${id}`)
 }

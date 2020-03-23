@@ -1,9 +1,12 @@
-import { IfMemberOf, Component, ComponentType, ComponentTypes, Props, Cons, Remove } from "@App/types"
+import { Component, ComponentType, ComponentTypes } from "@App/Types/Component"
+import { Remove } from "@App/Util/Types/List/Remove"
+import { IfMember } from "@App/Util/Types/List/IfMember"
+import { Cons } from "@App/Util/Types/List/Cons"
 
 /**
  * The type of an entity with some helper functions.
  */
-export interface IEntity<T extends Component[] = Component[]>
+export interface IEntity<T extends Component[] = []>
 {
 	/**
 	 * A Unique identifier for the entity.
@@ -25,7 +28,7 @@ export interface IEntity<T extends Component[] = Component[]>
 	 *
 	 * @param type The component type we want to get.
 	 */
-	get<C extends Component>(type: ComponentType<C>): IfMemberOf<C, T, C, unknown>
+	get<C extends Component>(type: ComponentType<C>): IfMember<C, T, C, unknown>
 
 	/**
 	 * Updates the entities component of the provided type.
@@ -33,7 +36,7 @@ export interface IEntity<T extends Component[] = Component[]>
 	 * @param type The type of component we want to update
 	 * @param data The new, updated data.
 	 */
-	update<C extends Component>(type: ComponentType<C>, data: IfMemberOf<C, T, Partial<C>, never>): void
+	update<C extends Component>(type: ComponentType<C>, data: IfMember<C, T, Partial<C>, never>): void
 
 	/**
 	 * Adds the component to the entity
@@ -41,7 +44,7 @@ export interface IEntity<T extends Component[] = Component[]>
 	 * @param type The component type being added
 	 * @param data The data of the component
 	 */
-	add<C extends Component>(component: C): IEntity<Cons<T, C>>
+	add<C extends ComponentType>(type: C, ... data: Parameters<C>): IEntity<Cons<T, C>>
 
 	/**
 	 * Removes the component type from the entity.
@@ -56,5 +59,5 @@ export interface IEntity<T extends Component[] = Component[]>
  */
 export interface IEntityConstructor
 {
-	new (id: number, ... components: Component[]): IEntity
+	new <T extends Component[] = []>(id: number): IEntity<T>
 }

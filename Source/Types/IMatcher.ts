@@ -1,5 +1,5 @@
 import { IEntity } from "./IEntity"
-import { ComponentType } from "@App/types"
+import { ComponentType } from "@App/Types/Component"
 
 export interface IMatcher
 {

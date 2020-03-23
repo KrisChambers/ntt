@@ -1,4 +1,8 @@
-import { Component, ComponentType, IfExtends, ComponentTypes, IfMemberOf, Cons, Remove } from "@App/types"
+import { Component, ComponentType, ComponentTypes } from "@App/Types/Component"
+import { Remove } from "@App/Util/Types/List/Remove"
+import { IfMember } from "@App/Util/Types/List/IfMember"
+import { Cons } from "@App/Util/Types/List/Cons"
+import { IfExtends } from "@App/Util/Types/Check/IfExtends"
 import { IEntity } from "../Types/IEntity"
 
 /**
@@ -6,14 +10,15 @@ import { IEntity } from "../Types/IEntity"
  */
 export class NaiveEntity<T extends Component[] = Component[]> implements IEntity<T>
 {
-	constructor (public readonly id: number, ... components: Component[])
+	constructor (public readonly id: number)
 	{
-		components.forEach(comp => this.comps.set(this.getKey(comp), comp))
+		// components.forEach(comp => this.comps.set(this.getKey(comp), comp))
 	}
 
-	add<C extends {}> (component: C): IEntity<Cons<T, C>>
+	add<C extends ComponentType> (type: C, ...data: Parameters<C>): IEntity<Cons<T, C>>
 	{
-		this.comps.set(this.getKey(component), component)
+
+		this.comps.set(type, type(data))
 
 		return this as unknown as IEntity<Cons<T, C>>
 	}
@@ -25,14 +30,14 @@ export class NaiveEntity<T extends Component[] = Component[]> implements IEntity
 
 	has<C extends Component[]> (...types: ComponentTypes<C>): this is IEntity<C>
 	{
-		return types.map(type => this.comps.has(this.getKey(type))).reduce((p, c) => p && c, true)
+		return types.every(type => this.comps.has(type))
 	}
 
-	get<C extends Component> (type: ComponentType<C>): IfMemberOf<C, T, C, unknown>
+	get<C extends Component> (type: ComponentType<C>): IfMember<C, T, C, unknown>
 	{
 		if (this.has(type))
 		{
-			return this.comps.get(this.getKey(type))
+			return this.comps.get(type)
 		}
 
 		return null as unknown
@@ -45,21 +50,10 @@ export class NaiveEntity<T extends Component[] = Component[]> implements IEntity
 
 	remove<C extends Component> (type: ComponentType<C>): IEntity<Remove<C, T>>
 	{
-		this.comps.delete(this.getKey(type))
+		this.comps.delete(type)
 
 		return this as unknown as IEntity<Remove<C, T>>
 	}
 
-
-	private getKey (type: ComponentType<Component> | Component)
-	{
-		if (typeof type === "function")
-		{
-			return type.name
-		}
-
-		return type.constructor.name
-	}
-
-	private comps: Map<string, T[number]> = new Map()
+	private comps: Map<ComponentType, T[number]> = new Map()
 }

@@ -1,4 +1,6 @@
-import { Cons, Props, ComponentType, Component } from "@App/types"
+import { ComponentType, Component } from "@App/Types/Component"
+import { Props } from "@App/Util/Types/Props"
+import { Cons } from "@App/Util/Types/List/Cons"
 import { IEntity } from "./IEntity"
 
 /**

@@ -1,10 +1,11 @@
 import { Default } from "@App/Store/Matcher"
 import { NaiveEntity } from "@App/Entity/NaiveEntity"
 import { Name, Pos, X } from "../../TestComponents"
+import { IEntity } from "@App/Types/IEntity"
 
 describe("Default All matcher test", () =>
 {
-	const entity = new NaiveEntity(1)
+	const entity: IEntity = new NaiveEntity(1)
 
 	entity.add(Name, "boop")
 	entity.add(Pos, 10, 10)

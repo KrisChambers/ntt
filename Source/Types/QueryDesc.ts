@@ -1,4 +1,4 @@
-import { ComponentType } from "@App/types"
+import { ComponentType } from "@App/Types/Component"
 
 /**
  * Describes a query to get entities.

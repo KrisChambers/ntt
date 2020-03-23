@@ -51,9 +51,10 @@ module.exports = {
 	overrides: [
 		{
 			// Rules for tests.
-			files: ["Test/**/*.spec.ts"],
+			files: ["Test/**/*.spec.ts", "Test/**/*.typespec.ts"],
 			rules: {
-				"no-undef": "off"
+				"no-undef": "off",
+				"@typescript-eslint/no-unused-vars" : "off"
 			}
 		},
 		{

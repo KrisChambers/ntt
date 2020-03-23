@@ -1,5 +1,5 @@
 import { IEntity } from "./IEntity"
-import { Component, ComponentType } from "@App/types"
+import { IQueryDesc } from "./QueryDesc"
 
 /**
  * Basic store for entities.
@@ -9,10 +9,11 @@ export interface IStore
 	/**
 	 * Creates a new entity.
 	 */
-	create(): IEntity
+	create(): IEntity<[]>
 
 	/**
 	 * Gets an entity with the provided id.
+	 *
 	 * @param id Unique identifier for the entity.
 	 */
 	read(id: number): IEntity
@@ -24,4 +25,11 @@ export interface IStore
 	 * @param id the id of the entity
 	 */
 	destroy(id: number): void
+
+	/**
+	 * Finds all entities matching the query
+	 *
+	 * @param query The query for the store.
+	 */
+	find(query: IQueryDesc): IEntity[]
 }
