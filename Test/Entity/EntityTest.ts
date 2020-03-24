@@ -47,7 +47,7 @@ export function EntityTest (Entity: IEntityConstructor)
 		describe(`${Entity.name} adding a component`, () =>
 		{
 			const e = new Entity(1)
-				.add(Name, "Boop")
+				.add(Name, "boop")
 				.add(X, 2)
 
 			expect(e.has(Name)).toBe(true)

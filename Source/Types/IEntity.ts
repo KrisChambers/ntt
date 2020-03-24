@@ -2,6 +2,7 @@ import { Component, ComponentType, ComponentTypes } from "@App/Types/Component"
 import { Remove } from "@App/Util/Types/List/Remove"
 import { IfMember } from "@App/Util/Types/List/IfMember"
 import { Cons } from "@App/Util/Types/List/Cons"
+import { Props } from "@App/Util/Types"
 
 /**
  * The type of an entity with some helper functions.
@@ -44,7 +45,7 @@ export interface IEntity<T extends Component[] = []>
 	 * @param type The component type being added
 	 * @param data The data of the component
 	 */
-	add<C extends ComponentType>(type: C, ... data: Parameters<C>): IEntity<Cons<T, C>>
+	add<X extends ComponentType, C = ReturnType<X>>(type: X, ... data: Parameters<X>): IEntity<Cons<T, C>>
 
 	/**
 	 * Removes the component type from the entity.

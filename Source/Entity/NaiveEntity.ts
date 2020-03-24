@@ -8,14 +8,14 @@ import { IEntity } from "../Types/IEntity"
 /**
  * A Simple implementation of the IEntity interface
  */
-export class NaiveEntity<T extends Component[] = Component[]> implements IEntity<T>
+export class NaiveEntity<T extends Component[] = []> implements IEntity<T>
 {
 	constructor (public readonly id: number)
 	{
 		// components.forEach(comp => this.comps.set(this.getKey(comp), comp))
 	}
 
-	add<C extends ComponentType> (type: C, ...data: Parameters<C>): IEntity<Cons<T, C>>
+	add<X extends ComponentType, C = ReturnType<X>> (type: X, ...data: Parameters<X>): IEntity<Cons<T, C>>
 	{
 
 		this.comps.set(type, type(data))

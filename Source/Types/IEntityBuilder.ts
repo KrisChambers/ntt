@@ -6,7 +6,7 @@ import { IEntity } from "./IEntity"
 /**
  * A type for building an entity.
  */
-export interface IEntityBuilder<C extends Component[] = []>
+export interface IEntityBuilder<Components extends Component[] = []>
 {
 	/**
 	 * Creates a new Entity
@@ -19,11 +19,11 @@ export interface IEntityBuilder<C extends Component[] = []>
 	 * @param comp The component type being added.
 	 * @param data The component data.
 	 */
-	with<T>(comp: ComponentType<T>, data: Props<T>): IEntityBuilder<Cons<C, T>>
+	with<T extends ComponentType, C = ReturnType<T>>(comp: T, ... data: Parameters<T>): IEntityBuilder<Cons<Components, C>>
 
 	/**
 	 * Returns the newly created entity.
 	 */
-	build(): IEntity<C>
+	build(): IEntity<Components>
 }
 
