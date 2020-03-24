@@ -1,4 +1,4 @@
-import { Component, ComponentType, ComponentTypes } from "@App/Types/Component"
+import { Component, ComponentType, ComponentTypes, ConstructorReturnType } from "@App/Types/Component"
 import { Remove } from "@App/Util/Types/List/Remove"
 import { IfMember } from "@App/Util/Types/List/IfMember"
 import { Cons } from "@App/Util/Types/List/Cons"
@@ -11,16 +11,13 @@ import { IEntity } from "../Types/IEntity"
 export class NaiveEntity<T extends Component[] = []> implements IEntity<T>
 {
 	constructor (public readonly id: number)
+	{ }
+
+	add<C extends ComponentType> (type: C, ...data: ConstructorParameters<ComponentType<C>>): IEntity<Cons<T, ConstructorReturnType<C>>>
 	{
-		// components.forEach(comp => this.comps.set(this.getKey(comp), comp))
-	}
+		this.comps.set(type, new type(data))
 
-	add<X extends ComponentType, C = ReturnType<X>> (type: X, ...data: Parameters<X>): IEntity<Cons<T, C>>
-	{
-
-		this.comps.set(type, type(data))
-
-		return this as unknown as IEntity<Cons<T, C>>
+		return this as unknown as IEntity<Cons<T, ConstructorReturnType<C>>>
 	}
 
 	get count ()

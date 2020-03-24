@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * A Component is an object represented by a list of properties.
  */
@@ -8,10 +9,16 @@ export interface Component
 	[key: string]: any
 }
 
+// eslint-disable-next-line @typescript-eslint/interface-name-prefix
+export interface ComponentType<T extends Component = Component>
+{
+	new (... args: any[]): T
+}
+
 /**
- * A ComponentType is a function that can construct a Component.
+ * Get the return type of the constructor function.
  */
-export type ComponentType<T extends Component = Component> = (...args: any[]) => T
+export type ConstructorReturnType<T> = T extends (new (...args: any[]) => infer U) ? U : never
 
 /**
  * Maps a tuple of Component to a tuple of their Types.

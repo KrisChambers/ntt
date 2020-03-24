@@ -7,22 +7,40 @@ import { Component } from "@App/Types/Component"
 	Some components to test with
 */
 
-export interface TestPosition { x: number, y: number, }
-export function TestPosition (x: number, y: number) { return { x, y } as TestPosition }
+export class TestPosition implements Component
+{
+	constructor (public x: number, public y: number)
+	{ }
+}
 
-export interface Name extends Component { text: string, }
-export function Name (text: string) { return { text } as Name }
+export class Name implements Component
+{
+	constructor (public test: string)
+	{ }
+}
 
-export interface Shape { height: number, width: number, }
-export function Shape (height: number, width: number) { return { height, width } as Shape }
+export class Shape implements Component
+{
+	constructor (public height: number, public width: number)
+	{ }
+}
 
-export interface Pos { x: number, y: number, }
-export function Pos (x: number, y: number) { return { x, y } as Pos }
+export class Pos implements Component
+{
+	constructor (public x: number, public y: number)
+	{ }
+}
 
-export interface X extends Component { x: number, }
-export function X (x: number) { return { x } as X }
+export class X implements Component
+{
+	constructor (public x: number)
+	{ }
+}
 
-export interface Y { y: number, }
-export function Y (y: number) { return { y } as Y }
+export class Y implements Component
+{
+	constructor (public y: number)
+	{ }
+}
 
 

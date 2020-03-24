@@ -1,5 +1,4 @@
-import { ComponentType, Component } from "@App/Types/Component"
-import { Props } from "@App/Util/Types/Props"
+import { ComponentType, Component, ConstructorReturnType } from "@App/Types/Component"
 import { Cons } from "@App/Util/Types/List/Cons"
 import { IEntity } from "./IEntity"
 
@@ -19,7 +18,7 @@ export interface IEntityBuilder<Components extends Component[] = []>
 	 * @param comp The component type being added.
 	 * @param data The component data.
 	 */
-	with<T extends ComponentType, C = ReturnType<T>>(comp: T, ... data: Parameters<T>): IEntityBuilder<Cons<Components, C>>
+	with<T extends ComponentType>(comp: T, ... params: ConstructorParameters<T>): IEntityBuilder<Cons<Components, ConstructorReturnType<T>>>
 
 	/**
 	 * Returns the newly created entity.
