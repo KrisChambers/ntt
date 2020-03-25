@@ -1,5 +1,5 @@
 import { IEntityManager } from "@App/Types/IEntityManager"
-import { IQuery } from "@App/Types/IQueryDesc"
+import { IQuery } from "@App/Types/IQuery"
 import { IEntity } from "@App/Types/IEntity"
 import { IStore } from "@App/Types/IStore"
 import { IEntityBuilder } from "@App/Types/IEntityBuilder"

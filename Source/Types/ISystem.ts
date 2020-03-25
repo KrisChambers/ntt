@@ -1,4 +1,4 @@
-import { IQuery } from "./IQueryDesc"
+import { IQuery } from "./IQuery"
 import { IEntityManager } from "./IEntityManager"
 import { DeepReadonly } from "@App/Util/Types/DeepReadOnly"
 

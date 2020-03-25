@@ -2,7 +2,7 @@ import { IStore } from "@App/Types/IStore"
 import { IEntity } from "@App/Types/IEntity"
 import { NaiveEntity } from "@App/Entity/NaiveEntity"
 import { IdGenerator } from "./IdGenerator"
-import { IQuery } from "@App/Types/IQueryDesc"
+import { IQuery } from "@App/Types/IQuery"
 import { Default } from "./Matcher"
 
 /**

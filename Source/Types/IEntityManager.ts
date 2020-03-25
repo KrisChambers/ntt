@@ -1,6 +1,6 @@
 import { IEntityBuilder } from "./IEntityBuilder"
 import { IEntity } from "./IEntity"
-import { IQuery } from "./IQueryDesc"
+import { IQuery } from "./IQuery"
 
 /**
  * Manages the collection of entities.
