@@ -1,5 +1,5 @@
 import { ISystem, ISystemType } from "../Source/Types/ISystem"
-import { IQueryDesc } from "../Source/Types/IQueryDesc"
+import { IQuery } from "../Source/Types/IQueryDesc"
 import { Component } from "../Source/Types/Component"
 import { DeepReadonly } from "../Source/Util/Types/DeepReadOnly"
 import { IEntityManager } from "../Source/Types/IEntityManager"
@@ -19,7 +19,7 @@ const WritingSystem: ISystemType = class implements ISystem
 	constructor (private manager: IEntityManager)
 	{ }
 
-	public static readonly query: IQueryDesc = {
+	public static readonly query: IQuery = {
 		All: [ Text ]
 	}
 

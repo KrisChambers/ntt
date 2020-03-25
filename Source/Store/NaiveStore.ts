@@ -3,7 +3,7 @@ import { IEntity } from "@App/Types/IEntity"
 import { Component, ComponentType } from "@App/Types/Component"
 import { NaiveEntity } from "@App/Entity/NaiveEntity"
 import { IdGenerator } from "./IdGenerator"
-import { IQueryDesc } from "@App/Types/IQueryDesc"
+import { IQuery } from "@App/Types/IQueryDesc"
 import { Default } from "./Matcher"
 
 /**
@@ -18,7 +18,7 @@ export class NaiveStore implements IStore
 	)
 	{ }
 
-	find (desc: IQueryDesc): IEntity[]
+	find (desc: IQuery): IEntity[]
 	{
 		const query = this.getQuery(desc)
 		const result: IEntity[] = []
@@ -56,14 +56,14 @@ export class NaiveStore implements IStore
 		throw this.InvalidIdError(id)
 	}
 
-	private isMatch (entity: IEntity, query: Required<IQueryDesc>)
+	private isMatch (entity: IEntity, query: Required<IQuery>)
 	{
 		return this.all(entity, ... (query.All ?? [])) &&
 			this.any(entity, ... query.Any ?? []) &&
 			this.none(entity, ... query.None ?? [])
 	}
 
-	private getQuery (query: IQueryDesc): Required<IQueryDesc>
+	private getQuery (query: IQuery): Required<IQuery>
 	{
 		return {
 			All: query.All ?? [],

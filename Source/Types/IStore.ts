@@ -1,5 +1,5 @@
 import { IEntity } from "./IEntity"
-import { IQueryDesc } from "./IQueryDesc"
+import { IQuery } from "./IQueryDesc"
 
 /**
  * Basic store for entities.
@@ -31,5 +31,5 @@ export interface IStore
 	 *
 	 * @param query The query for the store.
 	 */
-	find(query: IQueryDesc): IEntity[]
+	find(query: IQuery): IEntity[]
 }

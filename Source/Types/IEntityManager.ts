@@ -1,6 +1,6 @@
 import { IEntityBuilder } from "./IEntityBuilder"
 import { IEntity } from "./IEntity"
-import { IQueryDesc } from "./QueryDesc"
+import { IQuery } from "./IQueryDesc"
 
 /**
  * Manages the collection of entities.
@@ -17,5 +17,5 @@ export interface IEntityManager
 	 *
 	 * @param desc The query description to be used.
 	 */
-	query(desc: IQueryDesc): IEntity[]
+	query(desc: IQuery): IEntity[]
 }

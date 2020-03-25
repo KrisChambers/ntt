@@ -1,4 +1,4 @@
-import { IQueryDesc } from "./QueryDesc"
+import { IQuery } from "./IQueryDesc"
 import { IEntityManager } from "./IEntityManager"
 import { DeepReadonly } from "@App/Util/Types/DeepReadOnly"
 
@@ -23,7 +23,7 @@ export interface ISystemType
 	/**
 	* The query that defines the main type of components that the system operates on.
 	*/
-	readonly query: DeepReadonly<IQueryDesc>
+	readonly query: DeepReadonly<IQuery>
 
 	/**
 	 * Constructs a new instances of the system.
