@@ -1,5 +1,5 @@
 import { IEntity } from "./IEntity"
-import { IQueryDesc } from "./QueryDesc"
+import { IQueryDesc } from "./IQueryDesc"
 
 /**
  * Basic store for entities.

@@ -3,7 +3,7 @@ import { IEntity } from "@App/Types/IEntity"
 import { Component, ComponentType } from "@App/Types/Component"
 import { NaiveEntity } from "@App/Entity/NaiveEntity"
 import { IdGenerator } from "./IdGenerator"
-import { IQueryDesc } from "@App/Types/QueryDesc"
+import { IQueryDesc } from "@App/Types/IQueryDesc"
 import { Default } from "./Matcher"
 
 /**
@@ -51,16 +51,6 @@ export class NaiveStore implements IStore
 		if (entity != null)
 		{
 			return entity
-		}
-
-		throw this.InvalidIdError(id)
-	}
-
-	add<C extends Component> (id: number, type: ComponentType<C>, ... args: Parameters<ComponentType<C>>): void
-	{
-		if (this.entities.has(id))
-		{
-			this.entities.get(id)?.add(type, args)
 		}
 
 		throw this.InvalidIdError(id)

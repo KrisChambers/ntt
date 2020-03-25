@@ -1,5 +1,6 @@
 import { IfEqual } from "./IfEqual"
 import { GetItemType } from "../List/GetItemType"
+import { IfExtends } from "."
 
 /**
  * Checks if the provided type is an array.
@@ -19,8 +20,10 @@ import { GetItemType } from "../List/GetItemType"
  * const y: IfArray<[1, 2]> = true
  * ```
  */
-export type IfArray<Arr extends unknown[], True = true, False = false> = And<IfEqual<Arr["length"], number>, IfEqual<GetItemType<Arr>[], Arr[number]>> extends true ?
-	True :
+export type IfArray<Arr, True = true, False = false> = Arr extends unknown[] ?
+	And<IfEqual<Arr["length"], number>, IfEqual<GetItemType<Arr>[], Arr[number]>> extends true ?
+		True :
+		False :
 	False
 
 type And<T, U> = T & U
