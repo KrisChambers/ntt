@@ -5,6 +5,7 @@
 	"main": "dist/server.js",
 	"scripts": {
 		"test": "jest",
+		"example": "ts-node -r tsconfig-paths/register ./Example/index.ts",
 		"build": "tsc -p ./tsconfig.json",
 		"debug": "nodemon --inspect"
 	},

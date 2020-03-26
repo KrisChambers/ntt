@@ -1,6 +1,7 @@
 import { IEntityBuilder } from "./IEntityBuilder"
 import { IEntity } from "./IEntity"
 import { IQuery } from "./IQuery"
+import { QueryToEntity } from "./QueryToEntity"
 
 /**
  * Manages the collection of entities.
@@ -17,5 +18,5 @@ export interface IEntityManager
 	 *
 	 * @param desc The query description to be used.
 	 */
-	query(desc: IQuery): IEntity[]
+	query<TQuery extends IQuery>(desc: TQuery): QueryToEntity<TQuery>[]
 }

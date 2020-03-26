@@ -1,8 +1,0 @@
-{
-	"extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    /* Basic Options */
-    "incremental": true,                   /* Enable incremental compilation */
-  },
-  "include": ["./Source", "./Test" ]
-}

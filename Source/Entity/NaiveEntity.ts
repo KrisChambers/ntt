@@ -15,7 +15,7 @@ export class NaiveEntity<T extends Component[] = []> implements IEntity<T>
 
 	add<C extends ComponentType> (type: C, ...data: ConstructorParameters<ComponentType<C>>): IEntity<Cons<T, ConstructorReturnType<C>>>
 	{
-		this.comps.set(type, new type(data))
+		this.comps.set(type, new type(... data))
 
 		return this as unknown as IEntity<Cons<T, ConstructorReturnType<C>>>
 	}

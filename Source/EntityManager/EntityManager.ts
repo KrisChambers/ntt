@@ -1,9 +1,13 @@
 import { IEntityManager } from "@App/Types/IEntityManager"
 import { IQuery } from "@App/Types/IQuery"
-import { IEntity } from "@App/Types/IEntity"
 import { IStore } from "@App/Types/IStore"
 import { IEntityBuilder } from "@App/Types/IEntityBuilder"
+import { QueryToEntity } from "@App/Types/QueryToEntity"
+import { EntityBuilder } from "@App/EntityBuilder"
 
+/**
+ *
+ */
 export class EntityManager implements IEntityManager
 {
 	constructor (private store: IStore)
@@ -14,11 +18,12 @@ export class EntityManager implements IEntityManager
 	 */
 	create (): IEntityBuilder
 	{
-		throw new Error("Not Implemented")
+		return new EntityBuilder(this.store).create()
 	}
 
-	query (desc: IQuery): IEntity[]
+	query<TQuery extends IQuery> (query: TQuery): QueryToEntity<TQuery>[]
 	{
-		return this.store.find(desc)
+		return this.store.find(query) as unknown as QueryToEntity<TQuery>[]
 	}
 }
+
