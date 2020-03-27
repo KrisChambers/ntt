@@ -30,9 +30,9 @@ export interface IQuery<
  * Builds a query description.
  */
 export interface IQueryBuilder<
-	All extends Component[] = [],
-	Any extends Component[] = [],
-	None extends Component[] = []
+	All extends Component[] = Component[],
+	Any extends Component[] = Component[],
+	None extends Component[] = Component[]
 >
 {
 	/**

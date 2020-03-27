@@ -1,6 +1,5 @@
 import { IQuery } from "./IQuery"
 import { IEntityManager } from "./IEntityManager"
-import { DeepReadonly } from "@App/Util/Types/DeepReadOnly"
 
 /**
  * Basic type for a System.
@@ -18,12 +17,12 @@ export interface ISystem
 /**
  * Properties on the type of a system.
  */
-export interface ISystemType
+export interface ISystemType<T extends IQuery>
 {
 	/**
 	* The query that defines the main type of components that the system operates on.
 	*/
-	readonly query: DeepReadonly<IQuery>
+	readonly query: T
 
 	/**
 	 * Constructs a new instances of the system.

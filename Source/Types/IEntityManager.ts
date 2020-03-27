@@ -1,5 +1,4 @@
 import { IEntityBuilder } from "./IEntityBuilder"
-import { IEntity } from "./IEntity"
 import { IQuery } from "./IQuery"
 import { QueryToEntity } from "./QueryToEntity"
 

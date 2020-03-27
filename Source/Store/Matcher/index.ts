@@ -1,5 +1,8 @@
 import { IMatcher } from "@App/Types/IMatcher"
 
+/**
+ * The default matchers for the store.
+ */
 export const Default: {
 	All: IMatcher
 	Any: IMatcher
