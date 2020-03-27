@@ -15,6 +15,12 @@ export function arrayEqual (arr1?: Array<ComponentType>, arr2?: Array<ComponentT
 	return true
 }
 
+/**
+ * Checks if two IQuery are equal.
+ *
+ * @param a The first IQuery
+ * @param b The second IQuery
+ */
 export function queryEquals (a: IQuery, b: IQuery)
 {
 	return arrayEqual(a.All, b.All) && arrayEqual(a.Any, b.Any) && arrayEqual(a.None, b.None)
