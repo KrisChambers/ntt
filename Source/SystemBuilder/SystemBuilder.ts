@@ -35,6 +35,7 @@ export class SystemBuilder<T extends IQuery> implements ISystemBuilder<T>
 
 		return this
 	}
+
 	addUpdateAll (updateAll: (args: IUpdateAllParams<T>) => void): ISystemBuilder<T>
 	{
 		this.config.updateAll = updateAll
@@ -103,6 +104,8 @@ export class SystemBuilder<T extends IQuery> implements ISystemBuilder<T>
 		const { updateAll, updateOne } = config
 
 		if (updateAll == null && updateOne == null) return false
+
+		if (updateAll != null && updateOne != null) return false
 
 		return true
 	}

@@ -29,14 +29,14 @@ export interface ISystem<T extends IQuery>
 	 *
 	 * @param dt The time step.
 	 */
-	updateAll (entitiy: QueryToEntity<T>[], dt: number): void
+	updateAll (entities: QueryToEntity<T>[], dt: number): void
 
 	/**
 	 * Updates one entity.
 	 *
 	 * @param params paramaters for the update
 	 */
-	updateOne (entities: QueryToEntity<T>, dt: number): void
+	updateOne (entity: QueryToEntity<T>, dt: number): void
 
 	/**
 	 * updates the entities.
