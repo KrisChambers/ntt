@@ -1,22 +1,21 @@
-import { IQueryBuilder } from "."
+import { IQuery, QueryToEntity } from "."
+import { IUpdateAllParams, IUpdateOneParams } from "./ISystem"
 
 /**
- * Configuration for creating a new IService
+ * Configuration for a system instance.
  */
-export interface ISystemConfig<T extends IQueryBuilder>
+export interface ISystemConfig<T extends IQuery>
 {
-	/**
-	 * A Unique name for the service
-	 */
 	name: string
 
+	query: T
 	/**
-	 * A function for generating the query builder
+	 * An update function that will be run on a single entity.
 	 */
-	query: (builder: IQueryBuilder<[], [], []>) => T
+	updateOne?: (args: IUpdateOneParams<T>) => void
 
 	/**
-	 * The update function the service will run.
+	 * An update function that will be run on all entities.
 	 */
-	update: (dt: number) => void
+	updateAll?: (args: IUpdateAllParams<T>) => void
 }

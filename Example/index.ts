@@ -1,5 +1,6 @@
-import { getQueryBuilder, getManager } from "../Source"
-import { ISystemType, ISystem, IEntityManager, Component } from "../Source/Types"
+import { getManager } from "../Source"
+import { ISystemType, Component } from "../Source/Types"
+import { getSystemBuilder } from "@App/SystemBuilder"
 
 // Components implement the IComponent interface
 // it is important that the properties of the componenets are set in the constructor.
@@ -16,97 +17,55 @@ class Num implements Component
 	{ }
 }
 
+
 // We create a system that wants to get all components that have text and print it to the screen.
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const WritingSystem: ISystemType = class WritingSystem implements ISystem
-{
-	// An Entitymanager gets injected via the constructor.
-	constructor (private manager: IEntityManager)
-	{ }
-
-	// Since we are defining WritingSystem as a const of type ISystem, the static properties are type checked.
-	// So you need to define the query upfront
-	public static readonly query = getQueryBuilder()
-		.all(Text)
-		.build()
-
-	// A local system will have a way of getting the query
-	get query ()
+/**
+ * Writes text to the screen
+ */
+const WritingSystem = getSystemBuilder()
+	.setName("Writing")
+	.query(builder => builder.all(Text))
+	.addUpdateOne(({ entity }) =>
 	{
-		// We need to name the class twice (WritingSystem: ISystemType = class WritingSystem ...) so we can access the
-		// typed version of the property.
-		return WritingSystem.query
-	}
+		//console.log(entity.has(Text))
+		console.log(entity.get(Text).value)
+	})
+	.build()
 
-	update ()
+/**
+ * Increments a number and prints the before and after values.
+ */
+const IncrementSystem = getSystemBuilder()
+	.setName("Increment")
+	.query(builder => builder.all(Num))
+	.addUpdateOne(({ entity }) =>
 	{
-		// This is the main piece of non-boilerplate code.
-		const entities = this.manager.query(this.query)
+		const before = entity.get(Num).value
 
-		entities.forEach(entity => console.log(entity.get(Text).value))
-	}
-}
+		entity.get(Num).value += 1
+		console.log(`Before: ${before}; After: ${entity.get(Num).value}`)
+	})
+	.build()
 
-const IncrementSystem: ISystemType = class IncrementSystem implements ISystem
-{
-	public static readonly query = getQueryBuilder()
-		.all(Num)
-		.build()
+/**
+ * Prints the text and num of an entity.
+ */
+const PrintSystem = getSystemBuilder()
+	.setName("PrintSystem")
+	.query(builder => builder.all(Num, Text))
+	.addUpdateOne(({entity}) => console.log(`Text: ${entity.get(Text).value}, Num: ${entity.get(Num).value}`))
+	.build()
 
-	constructor (private manager: IEntityManager)
-	{ }
-
-	get query ()
-	{
-		return IncrementSystem.query
-	}
-
-	update ()
-	{
-		const entities = this.manager.query(this.query)
-
-		entities.forEach(entity =>
-		{
-			const before = entity.get(Num).value
-
-			entity.get(Num).value += 1
-
-			console.log(`Before: ${before}; After: ${entity.get(Num).value}`)
-		})
-	}
-}
-
-const PrintSystem: ISystemType = class PrintSystem implements ISystem
-{
-	public static readonly query = getQueryBuilder()
-		.all(Num, Text)
-		.build()
-
-	constructor (private manager: IEntityManager)
-	{ }
-
-	get query ()
-	{
-		return PrintSystem.query
-	}
-
-	update ()
-	{
-		const entities = this.manager.query(this.query)
-
-		entities.forEach(entity => console.log(`Text: ${entity.get(Text).value}, Num: ${entity.get(Num).value}`))
-	}
-}
 
 const manager = getManager()
 
-// We can define what are systems are like
 const systemTypes: ISystemType[] = [
 	WritingSystem,
 	IncrementSystem,
 	PrintSystem
 ]
+
 
 // Create a collection of instantiated systems that all share the same entity manager.
 const systems = systemTypes.map(S => new S(manager))
@@ -159,6 +118,6 @@ manager.create()
 systems.forEach(s =>
 {
 	console.log()
-	s.update()
+	s.update(0)
 })
 
