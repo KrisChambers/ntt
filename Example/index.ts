@@ -1,6 +1,5 @@
-import { getManager } from "../Source"
-import { ISystemType, Component } from "../Source/Types"
-import { getSystemBuilder } from "@App/SystemBuilder"
+import { Component } from "../Source/Types"
+import { Universe } from "@App/UniverseBuilder"
 
 // Components implement the IComponent interface
 // it is important that the properties of the componenets are set in the constructor.
@@ -18,58 +17,43 @@ class Num implements Component
 }
 
 
-// We create a system that wants to get all components that have text and print it to the screen.
+// This is the universe of entities and systems.
+const universe = new Universe()
 
 /**
- * Writes text to the screen
+ * System that writes out an entities text value.
  */
-const WritingSystem = getSystemBuilder()
-	.setName("Writing")
-	.query(builder => builder.all(Text))
-	.addUpdateOne(({ entity }) =>
-	{
-		//console.log(entity.has(Text))
-		console.log(entity.get(Text).value)
-	})
-	.build()
+universe.systems.create(builder =>
+	builder
+		.setName("Writing")
+		.query(qb => qb.all(Text))
+		.addUpdateOne(({ entity }) => console.log(entity.get(Text).value))
+)
 
 /**
- * Increments a number and prints the before and after values.
+ * A system that increments an entity's numerical value.
  */
-const IncrementSystem = getSystemBuilder()
-	.setName("Increment")
-	.query(builder => builder.all(Num))
-	.addUpdateOne(({ entity }) =>
-	{
-		const before = entity.get(Num).value
+universe.systems.create(builder =>
+	builder
+		.setName("Increment")
+		.query(qb => qb.all(Num))
+		.addUpdateOne(({ entity }) =>
+		{
+			const before = entity.get(Num).value
 
-		entity.get(Num).value += 1
-		console.log(`Before: ${before}; After: ${entity.get(Num).value}`)
-	})
-	.build()
-
+			entity.get(Num).value += 1
+			console.log(`Before: ${before}; After: ${entity.get(Num).value}`)
+		})
+)
 /**
  * Prints the text and num of an entity.
  */
-const PrintSystem = getSystemBuilder()
-	.setName("PrintSystem")
-	.query(builder => builder.all(Num, Text))
-	.addUpdateOne(({entity}) => console.log(`Text: ${entity.get(Text).value}, Num: ${entity.get(Num).value}`))
-	.build()
-
-
-const manager = getManager()
-
-const systemTypes: ISystemType[] = [
-	WritingSystem,
-	IncrementSystem,
-	PrintSystem
-]
-
-
-// Create a collection of instantiated systems that all share the same entity manager.
-const systems = systemTypes.map(S => new S(manager))
-
+universe.systems.create(builder =>
+	builder
+		.setName("PrintSystem")
+		.query(qb => qb.all(Num, Text))
+		.addUpdateOne(({entity}) => console.log(`Text: ${entity.get(Text).value}, Num: ${entity.get(Num).value}`))
+)
 
 /*
 	Using our manager we can create entities.
@@ -86,38 +70,37 @@ const systems = systemTypes.map(S => new S(manager))
 
 */
 
-manager.create()
+universe.entity.create()
 	.with(Text, "Hello")
 	.with(Num, 1)
 	.build()
 
-manager.create()
+universe.entity.create()
 	.with(Text, ", ")
 	.with(Num, 10)
 	.build()
 
-const e = manager.create()
+const e = universe.entity.create()
 	.with(Text, "World!")
 	.build()
 
-// After using the manager, you can add components to the entity.
+// After using the universe.entity, you can add components to the entity.
 e.add(Num, 100)
 
-manager.create()
+universe.entity.create()
 	.with(Text, "Only Text")
 	.build()
 
-manager.create()
+universe.entity.create()
 	.with(Num, 9999)
 	.build()
+
+// initialize the universe with the above configuration.
+universe.init()
 
 
 // This runs all the systems we need to run.
 // The first and second systems to run should run through 4 entities. (4 entities with Text, 4 with Num)
 // The third to run will only print out 3 since it requires both Text and Num components.
-systems.forEach(s =>
-{
-	console.log()
-	s.update(0)
-})
+universe.update(0)
 

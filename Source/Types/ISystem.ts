@@ -22,7 +22,7 @@ export interface IUpdateAllParams<T extends IQuery>
 /**
  * Basic type for a System.
  */
-export interface ISystem<T extends IQuery>
+export interface ISystem<T extends IQuery = IQuery>
 {
 	/**
 	 * Updates many entities.
