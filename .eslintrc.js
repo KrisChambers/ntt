@@ -17,7 +17,7 @@ module.exports = {
 	rules: {
 		"brace-style": "off",
 		"@typescript-eslint/brace-style": ["warn", "allman"],
-		indent: "off",
+		"indent": "off",
 		"@typescript-eslint/indent": ["warn", "tab" ],
 		"@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_"}],
 		"no-trailing-spaces": "warn",
@@ -45,8 +45,11 @@ module.exports = {
 		"@typescript-eslint/interface-name-prefix": ["warn", "always"],
 		"@typescript-eslint/no-empty-interface": "off",
 		"linebreak-style": ["warn", "windows"],
-		quotes: ["warn", "double"],
-		semi: ["warn", "never"]
+		"quotes": ["warn", "double"],
+		"semi": ["warn", "never"],
+
+		// Note: git should be configured to store the line endings as LF
+		"linebreak-style": "off" 
 	},
 	overrides: [
 		{
