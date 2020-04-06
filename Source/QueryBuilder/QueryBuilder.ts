@@ -1,5 +1,6 @@
-import { IQueryBuilder, IQuery } from "@App/Types/IQuery"
+import { IQuery } from "@App/Types/IQuery"
 import { Component, ComponentTypes } from "@App/Types/Component"
+import { IQueryBuilder } from "@App/Types/IQueryBuilder"
 
 /**
  * QueryBuilder implementation for generating IQueries.
