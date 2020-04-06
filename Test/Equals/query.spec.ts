@@ -31,7 +31,7 @@ const notEqualWhenAddingComponent = (buildFn: (qb: IQueryBuilder) => IQueryBuild
 	{
 		const baseBuilder = buildFn(getQueryBuilder())
 		const baseQuery = baseBuilder.build()
-		const q1 = baseBuilder.all(... [UnEqualizer, ... baseQuery.All ?? []]).build()
+		const q1 = baseBuilder.all(... [UnEqualizer, ... baseQuery.all ?? []]).build()
 
 		expect(queryEquals(baseQuery, q1)).toBe(false)
 	})
@@ -40,7 +40,7 @@ const notEqualWhenAddingComponent = (buildFn: (qb: IQueryBuilder) => IQueryBuild
 	{
 		const baseBuilder = buildFn(getQueryBuilder())
 		const baseQuery = baseBuilder.build()
-		const q1 = baseBuilder.any(...[UnEqualizer, ...baseQuery.Any ?? []]).build()
+		const q1 = baseBuilder.any(...[UnEqualizer, ...baseQuery.any ?? []]).build()
 
 		expect(queryEquals(baseQuery, q1)).toBe(false)
 	})
@@ -49,7 +49,7 @@ const notEqualWhenAddingComponent = (buildFn: (qb: IQueryBuilder) => IQueryBuild
 	{
 		const baseBuilder = buildFn(getQueryBuilder())
 		const baseQuery = baseBuilder.build()
-		const q1 = baseBuilder.none(...[UnEqualizer, ...baseQuery.None ?? []]).build()
+		const q1 = baseBuilder.none(...[UnEqualizer, ...baseQuery.none ?? []]).build()
 
 		expect(queryEquals(baseQuery, q1)).toBe(false)
 	})
@@ -59,7 +59,7 @@ const notEqualWhenRemovingAComponent = (buildFn: (builder: IQueryBuilder) => IQu
 {
 	const baseBuilder = buildFn(getQueryBuilder())
 	const baseQuery = baseBuilder.build()
-	const { All, Any, None} = baseQuery
+	const { all: All, any: Any, none: None} = baseQuery
 
 	if (All != null && All.length > 0)
 	{

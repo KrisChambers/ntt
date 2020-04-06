@@ -84,7 +84,7 @@ export function StoreTest (Store: new () => IStore)
 
 			test("Grab all entities that have a Name", () =>
 			{
-				const result = store.find({ All: [ Name ]})
+				const result = store.find({ all: [ Name ]})
 
 				expect(result).toHaveLength(3)
 			})

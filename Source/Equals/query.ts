@@ -23,5 +23,5 @@ export function arrayEqual (arr1?: Array<ComponentType>, arr2?: Array<ComponentT
  */
 export function queryEquals (a: IQuery, b: IQuery)
 {
-	return arrayEqual(a.All, b.All) && arrayEqual(a.Any, b.Any) && arrayEqual(a.None, b.None)
+	return arrayEqual(a.all, b.all) && arrayEqual(a.any, b.any) && arrayEqual(a.none, b.none)
 }

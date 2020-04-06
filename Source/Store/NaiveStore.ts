@@ -57,17 +57,17 @@ export class NaiveStore implements IStore
 
 	private isMatch (entity: IEntity, query: Required<IQuery>)
 	{
-		return this.all(entity, ... (query.All ?? [])) &&
-			this.any(entity, ... query.Any ?? []) &&
-			this.none(entity, ... query.None ?? [])
+		return this.all(entity, ... (query.all ?? [])) &&
+			this.any(entity, ... query.any ?? []) &&
+			this.none(entity, ... query.none ?? [])
 	}
 
 	private getQuery (query: IQuery): Required<IQuery>
 	{
 		return {
-			All: query.All ?? [],
-			Any: query.Any ?? [],
-			None: query.None ?? []
+			all: query.all ?? [],
+			any: query.any ?? [],
+			none: query.none ?? []
 		}
 	}
 

@@ -11,9 +11,9 @@ export class QueryBuilder<
 	None extends Component[] = []>
 implements IQueryBuilder<All, Any, None>
 {
-	allQuery: IQuery["All"] = []
-	anyQuery: IQuery["Any"] = []
-	noneQuery: IQuery["None"] = []
+	allQuery: IQuery["all"] = []
+	anyQuery: IQuery["any"] = []
+	noneQuery: IQuery["none"] = []
 
 	/**
 	 * Specifies that all the types need to be included in the entity.
@@ -56,9 +56,9 @@ implements IQueryBuilder<All, Any, None>
 	build (): IQuery<All, Any, None>
 	{
 		return {
-			All: [... this.allQuery],
-			Any: [... this.anyQuery],
-			None: [ ... this.noneQuery ]
+			all: [... this.allQuery],
+			any: [... this.anyQuery],
+			none: [ ... this.noneQuery ]
 		} as IQuery<All, Any, None>
 	}
 }

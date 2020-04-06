@@ -13,16 +13,16 @@ export interface IQuery<
 	/**
 	 * Returned entities must have all the components in this list.
 	 */
-	All?: ComponentTypes<All>
+	all?: ComponentTypes<All>
 
 	/**
 	 * Returned entities must have atleast one of the components in this list.
 	 */
-	Any?: ComponentTypes<Any>
+	any?: ComponentTypes<Any>
 
 	/**
 	 * Entities must have none of the components in this list.
 	 */
-	None?: ComponentTypes<None>
+	none?: ComponentTypes<None>
 }
 
