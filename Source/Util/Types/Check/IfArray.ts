@@ -1,6 +1,5 @@
 import { IfEqual } from "./IfEqual"
 import { GetItemType } from "../List/GetItemType"
-import { IfExtends } from "."
 
 /**
  * Checks if the provided type is an array.

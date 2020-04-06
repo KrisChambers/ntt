@@ -1,0 +1,31 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "ES2015",
+		"outDir": "./dist",
+		"downlevelIteration": true,
+		"baseUrl": "./Source",
+		"paths": {
+			"@App/*": [
+				"./*"
+			]
+		},
+		"declaration": true,
+		"declarationDir": "./dist",
+
+		"strict": true,
+		"noUnusedLocals": false,
+		"noUnusedParameters": true,
+		"noImplicitReturns": true,
+		"allowSyntheticDefaultImports": true,
+		
+		"esModuleInterop": true,
+		"inlineSourceMap": true,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
+	},
+	"include": [
+		"./Source"
+	],
+	"exclude": ["node_modules"]
+}

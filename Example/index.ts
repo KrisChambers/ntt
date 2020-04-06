@@ -1,5 +1,5 @@
-import { Component } from "@App/Types"
-import { Universe } from "@App/UniverseBuilder"
+import { Universe } from "../dist"
+import { Component } from "../dist/Types"
 
 // Components implement the IComponent interface
 // it is important that the properties of the componenets are set in the constructor.
