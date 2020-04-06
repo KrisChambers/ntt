@@ -34,5 +34,5 @@ export interface IQueryBuilder<
 	/**
 	 * Builds the query.
 	 */
-	build(): IQuery<All, Any, None>
+	build(): Required<IQuery<All, Any, None>>
 }

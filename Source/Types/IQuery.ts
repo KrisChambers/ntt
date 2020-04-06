@@ -25,4 +25,3 @@ export interface IQuery<
 	 */
 	none?: ComponentTypes<None>
 }
-

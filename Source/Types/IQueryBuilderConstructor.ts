@@ -5,5 +5,5 @@ import { IQueryBuilder } from "./IQueryBuilder"
  */
 export interface IQueryBuilderConstructor
 {
-	new (): IQueryBuilder
+	new (): IQueryBuilder<[], [], []>
 }

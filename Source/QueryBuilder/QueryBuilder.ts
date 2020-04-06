@@ -11,10 +11,6 @@ export class QueryBuilder<
 	None extends Component[] = []>
 implements IQueryBuilder<All, Any, None>
 {
-	allQuery: IQuery["all"] = []
-	anyQuery: IQuery["any"] = []
-	noneQuery: IQuery["none"] = []
-
 	/**
 	 * Specifies that all the types need to be included in the entity.
 	 *
@@ -22,7 +18,7 @@ implements IQueryBuilder<All, Any, None>
 	 */
 	all<T extends Component[] = []> (...types: ComponentTypes<T>): IQueryBuilder<T, Any, None>
 	{
-		this.allQuery = types
+		this.allQuery = types as unknown as ComponentTypes<All>
 
 		return this as unknown as IQueryBuilder<T, Any, None>
 	}
@@ -34,7 +30,7 @@ implements IQueryBuilder<All, Any, None>
 	 */
 	any<T extends Component[] = []> (...types: ComponentTypes<T>): IQueryBuilder<All, T, None>
 	{
-		this.anyQuery = types
+		this.anyQuery = types as unknown as ComponentTypes<Any>
 
 		return this as unknown as IQueryBuilder<All, T, None>
 	}
@@ -45,7 +41,7 @@ implements IQueryBuilder<All, Any, None>
 	 */
 	none<T extends Component[] = []> (...types: ComponentTypes<T>): IQueryBuilder<All, Any, T>
 	{
-		this.noneQuery = types
+		this.noneQuery = types as unknown as ComponentTypes<None>
 
 		return this as unknown as IQueryBuilder<All, Any, T>
 	}
@@ -53,14 +49,18 @@ implements IQueryBuilder<All, Any, None>
 	/**
 	 * Builds the query.
 	 */
-	build (): IQuery<All, Any, None>
+	build (): Required<IQuery<All, Any, None>>
 	{
 		return {
-			all: [... this.allQuery],
-			any: [... this.anyQuery],
-			none: [ ... this.noneQuery ]
-		} as IQuery<All, Any, None>
+			all: [ ... this.allQuery ] as ComponentTypes<All>,
+			any: [... this.anyQuery] as ComponentTypes<Any>,
+			none: [ ... this.noneQuery ] as ComponentTypes<None>
+		} // as IQuery<All, Any, None>
 	}
+
+	private allQuery = [] as unknown as ComponentTypes<All>
+	private anyQuery= [] as unknown as ComponentTypes<Any>
+	private noneQuery = [] as unknown as ComponentTypes<None>
 }
 
 export interface IQueryBuilderConstructor
