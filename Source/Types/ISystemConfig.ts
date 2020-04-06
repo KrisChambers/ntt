@@ -1,4 +1,4 @@
-import { IQuery, QueryToEntity } from "."
+import { IQuery } from "."
 import { IUpdateAllParams, IUpdateOneParams } from "./ISystem"
 
 /**

@@ -1,4 +1,4 @@
-import { IQueryBuilderConstructor } from "@App/QueryBuilder"
+import { IQueryBuilderConstructor } from "@App/Types"
 import { Name, X, Y, Pos } from "../TestComponents"
 
 /**
