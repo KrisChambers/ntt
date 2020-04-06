@@ -1,4 +1,4 @@
-import { Component } from "../Source/Types"
+import { Component } from "@App/Types"
 import { Universe } from "@App/UniverseBuilder"
 
 // Components implement the IComponent interface
