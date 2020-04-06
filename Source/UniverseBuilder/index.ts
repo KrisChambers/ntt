@@ -1,6 +1,6 @@
 import { IUniverse } from "@App/Types/IUniverse"
 import { ISystemBuilder } from "@App/Types/ISystemBuilder"
-import { ISystemType, IEntityManager, ISystem } from "@App/Types"
+import { ISystemType, IEntityManager, ISystem, IQuery } from "@App/Types"
 import { getSystemBuilder } from "@App/SystemBuilder"
 import { getManager } from "@App/EntityManager"
 
@@ -14,7 +14,7 @@ export interface ISystemManager
 	 *
 	 * @param fn
 	 */
-	create (fn: (builder: ISystemBuilder) => ISystemBuilder): ISystemManager
+	create (fn: (builder: ISystemBuilder<IQuery<[], [], []>>) => ISystemBuilder): ISystemManager
 
 	/**
 	 * Adds prebuilt systems.
@@ -44,7 +44,7 @@ export class SystemManager implements ISystemManager
 	constructor (private manager: IEntityManager)
 	{ }
 
-	create (sysBuild: (b: ISystemBuilder) => ISystemBuilder)
+	create (sysBuild: (b: ISystemBuilder<IQuery<[], [], []>>) => ISystemBuilder)
 	{
 		this.types.push(sysBuild(getSystemBuilder()).build())
 

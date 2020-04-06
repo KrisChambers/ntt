@@ -18,7 +18,7 @@ export interface ISystemBuilder<T extends IQuery = IQuery>
 	 *
 	 * @param buildFn The function to build the query
 	 */
-	query<X extends Component[], Y extends Component[], Z extends Component[]>(buildFn: (builder: IQueryBuilder) => IQueryBuilder<X, Y, Z>): ISystemBuilder<IQuery<X, Y, Z>>
+	query<X extends Component[], Y extends Component[], Z extends Component[]>(buildFn: (builder: IQueryBuilder<[], [], []>) => IQueryBuilder<X, Y, Z>): ISystemBuilder<IQuery<X, Y, Z>>
 
 	/**
 	 * Adds a update function to operate on a single entity.
