@@ -20,40 +20,42 @@ class Num implements Component
 // This is the universe of entities and systems.
 const universe = new Universe()
 
-/**
- * System that writes out an entities text value.
- */
-universe.systems.create(builder =>
-	builder
-		.setName("Writing")
-		.query(qb => qb.all(Text))
-		.addUpdateOne(({ entity }) => console.log(entity.get(Text).value))
-)
 
-/**
- * A system that increments an entity's numerical value.
- */
-universe.systems.create(builder =>
-	builder
-		.setName("Increment")
-		.query(qb => qb.all(Num))
-		.addUpdateOne(({ entity }) =>
-		{
-			const before = entity.get(Num).value
+universe.systems
+	/**
+	 * System that writes out an entities text value.
+	 */
+	.create(builder =>
+		builder
+			.setName("Writing")
+			.query(qb => qb.all(Text))
+			.addUpdateOne(({ entity }) => console.log(entity.get(Text).value))
+	)
 
-			entity.get(Num).value += 1
-			console.log(`Before: ${before}; After: ${entity.get(Num).value}`)
-		})
-)
-/**
- * Prints the text and num of an entity.
- */
-universe.systems.create(builder =>
-	builder
-		.setName("PrintSystem")
-		.query(qb => qb.all(Num, Text))
-		.addUpdateOne(({entity}) => console.log(`Text: ${entity.get(Text).value}, Num: ${entity.get(Num).value}`))
-)
+	/**
+	 * A system that increments an entity's numerical value.
+	 */
+	.create(builder =>
+		builder
+			.setName("Increment")
+			.query(qb => qb.all(Num))
+			.addUpdateOne(({ entity }) =>
+			{
+				const before = entity.get(Num).value
+
+				entity.get(Num).value += 1
+				console.log(`Before: ${before}; After: ${entity.get(Num).value}`)
+			})
+	)
+	/**
+	 * Prints the text and num of an entity.
+	 */
+	.create(builder =>
+		builder
+			.setName("PrintSystem")
+			.query(qb => qb.all(Num, Text))
+			.addUpdateOne(({entity}) => console.log(`Text: ${entity.get(Text).value}, Num: ${entity.get(Num).value}`))
+	)
 
 /*
 	Using our manager we can create entities.
