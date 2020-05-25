@@ -1,6 +1,6 @@
-## Ntt
+## Ntt - Entity Component System
 
-This is an entity component system i built to test some typing ideas I had.
+This is an entity component system to test some typing ideas and learn more about the ECS pattern.
 
 ## Basics
 
