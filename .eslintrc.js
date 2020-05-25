@@ -3,7 +3,6 @@ module.exports = {
 		es6: true,
 		node: true
 	},
-	ignorePatterns: [ "**/dist/**/*"],
 	extends: ["plugin:@typescript-eslint/recommended"],
 	globals: {
 		Atomics: "readonly",
