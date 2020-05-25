@@ -64,7 +64,7 @@ There are some issues regarding the types for queries. If you do not use a query
 A query has 3 possible parts to it. All, Any, or None.
 
 1. All: All of the components must be present.
-2. Any: Atleast one of the components must be present.
+2. Any: At least one of the components must be present.
 3. None: None of the components should be present.
 
 So for instance if we have a query that looks like `{ all: [A], any: [B, C], none: [D]}` this will return all entities that have component A and not D, and B or C.
@@ -75,6 +75,6 @@ We should be able to do this.
 
 ### **Naming**
 
-Not entirely satisfied with some of the naming of the types. So this should be rethough abit.
+Not entirely satisfied with some of the naming of the types. So this should be rethought a little.
 
 
