@@ -9,14 +9,10 @@ export default {
             format: "cjs"
         }
     ],
-    external: [
-        ... Object.keys(pkg.dependencies || { }),
-        ... Object.keys(pkg.peerDependencies || { })
-    ],
     plugins: [
         typescript({
-            tsconfig: "tsconfig.bundle.json",
-            typescript: require("typescript")
-        })
+            typescript: require("ttypescript"),
+            tsconfig: "tsconfig.bundle.json"
+       }),
     ]
 }

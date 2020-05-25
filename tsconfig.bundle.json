@@ -22,7 +22,11 @@
 		"esModuleInterop": true,
 		"inlineSourceMap": true,
 		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true
+		"emitDecoratorMetadata": true,
+		"plugins": [{
+			"transform": "@zerollup/ts-transform-paths",
+			"exclude": ["*"]
+		}]
 	},
 	"include": [
 		"./Source"

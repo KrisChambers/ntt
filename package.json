@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Entity Component System for testing some typing ideas.",
 	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"scripts": {
 		"test": "jest",
 		"example": "ts-node -r tsconfig-paths/register ./Example/index.ts",
@@ -16,17 +17,22 @@
 	"author": "Kris Chambers <kris.chambers@outlook.com>",
 	"license": "MIT",
 	"devDependencies": {
+		"@rollup/plugin-alias": "^3.0.1",
 		"@types/jest": "^25.1.2",
 		"@typescript-eslint/eslint-plugin": "^2.19.2",
 		"@typescript-eslint/parser": "^2.19.2",
+		"@zerollup/ts-transform-paths": "^1.7.17",
 		"eslint": "^6.8.0",
 		"eslint-plugin-import": "^2.20.1",
 		"jest": "^25.1.0",
 		"rollup": "^2.3.3",
+		"rollup-plugin-ts": "^1.2.24",
 		"rollup-plugin-typescript2": "^0.27.0",
 		"ts-jest": "^25.3.1",
 		"ts-loader": "^6.2.2",
 		"ts-node": "^8.6.2",
+		"tslib": "^1.11.1",
+		"ttypescript": "^1.5.10",
 		"typescript": "^3.8.0"
 	},
 	"dependencies": {
