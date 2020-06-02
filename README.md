@@ -4,15 +4,18 @@ This is an entity component system to test some typing ideas and learn more abou
 
 ## Basics
 
-An entity is simply an id corresponding to a collection of data objects called components. Each component is unique and has a unique key. We don't always want to iterate over the entire collection of components, but we want it to be fast. So we can think of Entity as a subtype of `Map<Key, Object>`.
+An entity is simply an id corresponding to a collection of data objects called components. Each type of component has a unique key. We don't always want to iterate over the entire collection of components, but we want it to be fast. So we can think of Entity as a subtype of `Map<Key, Object>`.
 
 Generally we want to be able to ask the entity a couple things.
 
 1. Do you have a particular component?
 1. Give me the component corresponding to it's key.
 
-## Observation
+## Assumptions
 
+1. An Entity can have only 1 type of component. Ex: Position, Color, etc.
+
+## Observation
 
 Consider the following code:
 
@@ -32,13 +35,13 @@ if (m.has("foo"))
 }
 ```
 
-If you put the above code into a ts file it should give you type errors trying to set `foo.name = "foo"`. Namely, it is possible that foo might be undefined.
+If you put the above code into a ts file it should give you a type error for the statement `foo.name = "foo"`. Namely, "it is possible that foo might be undefined".
 
-Assuming this function is running in complete isolation and nothing is going to change between the has and get calls, the variable `foo` should be able to be type since we know they key "foo" exists in m, and the possible types that can be associated with the key does not include unknown.
+Assuming this function is running in complete isolation and nothing is going to change between the `has` and `get` calls, the variable `foo` should be able to be typed since we know the key "foo" exists in m, and the possible types that can be associated with the key does not include unknown.
 
 ## Components
 
-In this implementation instances of Components are still dumb objects. This is desirable in ECS for serializability. In addition we are also using the component type as a key.
+In this implementation, instances of Components are still dumb objects (POJO). This is desirable in ECS for serializability purposes. In addition we are also using the component type as a key.
 
 So instead of having to write something like:
 
@@ -54,8 +57,36 @@ entity.get(Text)
 
 Under the hood, this is simply using the name property of the constructor for the key. Ideally, this would be a default, not required. But that wasn't a concern right now.
 
-## Some Future Ideas
+### How it works.
 
+Consider the chunk of code below, rewritten using our entity system.
+
+```ts
+import { Component, Universe } from "ntt"
+
+class Foo implements Component
+{
+    constructor(public name: string) {}
+}
+class Bar implements Component
+{
+    constructor(public age: number) {}
+}
+
+const u = new Universe()
+
+const e = u.entity.create()
+    .with(Foo, "foo")
+    .with(Bar, "bar")
+    .build()
+
+if (m.has("foo"))
+{
+    const foo = m.get("one")
+
+    foo.name = "foo"
+}
+```
 
 ### **Queries**
 

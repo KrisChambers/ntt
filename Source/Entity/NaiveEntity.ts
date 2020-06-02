@@ -1,4 +1,4 @@
-import { Component, ComponentType, ComponentTypes, ConstructorReturnType } from "@App/Types/Component"
+import { Component, ComponentType, ConstructorReturnType } from "@App/Types/Component"
 import { Remove } from "@App/Util/Types/List/Remove"
 import { IfMember } from "@App/Util/Types/List/IfMember"
 import { Cons } from "@App/Util/Types/List/Cons"
@@ -25,19 +25,21 @@ export class NaiveEntity<T extends Component[] = []> implements IEntity<T>
 		return this.comps.size
 	}
 
-	has<C extends Component[]> (...types: ComponentTypes<C>): this is IEntity<C>
+	has<C extends Component> (type: ComponentType<C>): this is IEntity<Cons<T, C>>
 	{
-		return types.every(type => this.comps.has(type))
+		return this.comps.has(type)
 	}
 
-	get<C extends Component> (type: ComponentType<C>): IfMember<C, T, C, unknown>
+	get<C extends Component> (type: ComponentType<C>): IfMember<C, T, C, never>
 	{
 		if (this.has(type))
 		{
-			return this.comps.get(type)
+			const x = this.comps.get(type) || null as never
+
+			return x as IfMember<C, T, C, never>
 		}
 
-		return null as unknown
+		return null as never
 	}
 
 	update<C extends Component> (_type: ComponentType<C>, _data: IfExtends<C, T[number], Partial<C>, never>): void
