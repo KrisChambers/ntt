@@ -1,7 +1,7 @@
 import { Cons } from "./Cons"
 import { IfArray } from "../Check/IfArray"
 
-type ReverseTuple<Tuple extends unknown[], R extends unknown[] = []> = {
+export type ReverseTuple<Tuple extends unknown[], R extends unknown[] = []> = {
 	0: R
 	1: ((...l: Tuple) => void) extends ((h: infer H, ...t: infer T) => void) ? ReverseTuple<T, Cons<R, H>> : never
 }[Tuple extends [unknown, ...unknown[]] ? 1 : 0]
