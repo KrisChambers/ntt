@@ -5,7 +5,7 @@ import { IEntity } from "./IEntity"
 /**
  * A type for building an entity.
  */
-export interface IEntityBuilder<Components extends Component[] = []>
+export interface IEntityBuilder<Components extends Component[] = Component[]>
 {
 	/**
 	 * Creates a new Entity
