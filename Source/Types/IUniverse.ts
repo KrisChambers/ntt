@@ -1,5 +1,3 @@
-import { ISystemType } from "./ISystem"
-import { IQuery } from "."
 import { IEntityManager } from "./IEntityManager"
 import { ISystemManager } from "@App/UniverseBuilder"
 
