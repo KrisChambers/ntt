@@ -7,7 +7,7 @@ import { IStore } from "@App/Types/IStore"
 /**
  * IEntityBuilder Implementation
  */
-export class EntityBuilder<Components extends Component[] = []> implements IEntityBuilder<Components>
+export class EntityBuilder<Components extends Component[] = Component[]> implements IEntityBuilder<Components>
 {
 	private entity: IEntity<Components> | null = null
 
