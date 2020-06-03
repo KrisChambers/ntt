@@ -7,7 +7,7 @@ import { Cons } from "@App/Util/Types/List/Cons"
 /**
  * The type of an entity with some helper functions.
  */
-export interface IEntity<T extends Component[] = []>
+export interface IEntity<T extends Component[] = Component[]>
 {
 	/**
 	 * A Unique identifier for the entity.
@@ -45,7 +45,6 @@ export interface IEntity<T extends Component[] = []>
 	 * @param type The component type being added
 	 * @param data The data of the component
 	 */
-	//create<T extends ComponentType>(Class: T, ...params: ConstructorParameters<T>): ConstructorReturnType<T>
 	add<C extends ComponentType>(type: C, ...data: ConstructorParameters<C>): IEntity<Cons<T, ConstructorReturnType<C>>>
 
 	/**
