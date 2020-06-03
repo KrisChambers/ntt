@@ -18,7 +18,7 @@ export interface IQueryBuilder<
 	all<T extends Component[] =[]>( ... types: ComponentTypes<T>): IQueryBuilder<T, Any, None>
 
 	/**
-	 * Specifies that atleast one of the types must be included.
+	 * Specifies that at least one of the types must be included.
 	 *
 	 * @param types The types of components.
 	 */
