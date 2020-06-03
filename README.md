@@ -57,9 +57,9 @@ entity.get(Text)
 
 Under the hood, this is simply using the name property of the constructor for the key. Ideally, this would be a default, not required. But that wasn't a concern right now.
 
-### How it works.
+### What we are aiming for.
 
-Consider the chunk of code below, rewritten using our entity system.
+Consider the chunk of code below. It is similar to above, but written to utilize the ideas in Ntt.
 
 ```ts
 import { Component, Universe } from "ntt"
@@ -72,6 +72,10 @@ class Bar implements Component
 {
     constructor(public age: number) {}
 }
+class Position implements Component
+{
+    constructor (public x: number, public y: number) { }
+}
 
 const u = new Universe()
 
@@ -79,14 +83,51 @@ const e = u.entity.create()
     .with(Foo, "foo")
     .with(Bar, "bar")
     .build()
-
-if (m.has("foo"))
-{
-    const foo = m.get("one")
-
-    foo.name = "foo"
-}
 ```
+In the above code `e` contains an entity with two components `Foo` and `Bar`.
+
+Now we define some system:
+
+```ts
+universe.systems
+    /**
+     * A System for inspecting an entity
+     */
+    .create(builder =>
+    builder
+        .setName("Inspect")
+        .query(qb => qb.all(Foo))
+        .addUpdateOne(({ entity }) =>
+        {
+            const foo = entity.get(Foo)
+
+            console.log(`Foo thing: ${foo.name}`)
+
+            if (foo.has(Pos))
+            {
+                const pos = entity.get(Pos)
+                console.log(`Foo is at pos: (${pos.x}, ${pos.y})`)
+            }
+        })
+    )
+```
+
+The main goal of this project is to look at a way to use conditional types and recursive types so this types appropriately.
+
+We expect the check for the `Pos` component to allow us to disregard checks for undefined / null if it returns true.
+
+## Future work and notes.
+
+### Recursive type depth problem.
+
+Currently the above goals are not met for a few reasons.
+
+1. There is no support for arbitrary generic parameters similar to how functions have a `... params: any[]` format (this could make the whole list / tuple stuff unnecessary).
+2. The type `[Foo]` and `[Foo, Bar]` do not have an "is assignable to" relation.
+3. To fix 2 we can include the rest type parameter `... Component[]` in the tuple. This is the next avenue to explore a bit more. The issue comes from the covariance of the `IEntity<T>` generic parameter and how type guards work. Instead of a simple casting of `this` it is narrowing the type. Ex: If the type of `this` is `IEntity<[Foo]>` then `this is IEntity<Cons<Bar, T>>` gives us the type `IEntity<[Bar, Foo]> & IEntity<[Foo]>`. Hence we need to be careful to make sure that we are creating a subtype.
+4. Our attempt at fixing 3 was to try and create a new recursive type called `Has` which would insert the new type into the type list. The type on it's own worked but using it in conjunction with `IEntity` was causing the typical "type instantiation is excessively deep" problems.
+5. We will look at refactoring the IEntity stuff so we can better see where exactly these problems are popping up. In particular I am thinking the problem comes from all the recursive types being created when we are using `IEntity<Has<...>>`. So disconnecting these operations (specifically the `has` and `get`) will allow us to try and create a more manageable test case.
+
 
 ### **Queries**
 
